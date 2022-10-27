@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class PlayerController : MonoBehaviour {
+public class bruh : MonoBehaviour {
 
-    //Variables
-    public static PlayerController p;
 
     //GameObjects and Scripts
     public Camera MainCam;
