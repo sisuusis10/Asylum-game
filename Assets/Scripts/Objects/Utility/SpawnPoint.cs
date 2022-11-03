@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnPoint : MonoBehaviour {
-
+/*
     public int PlaceID;
     private bool DestroyThis;
 
@@ -25,4 +25,5 @@ public class SpawnPoint : MonoBehaviour {
     private void OnDrawGizmos() {
         Gizmos.DrawCube(this.transform.position+new Vector3(0,1.1f,0), new Vector3(1,2,1));
     }
+*/
 }

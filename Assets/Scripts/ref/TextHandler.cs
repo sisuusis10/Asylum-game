@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -213,3 +213,4 @@ public class TextHandler : MonoBehaviour {
 }
 
 //This is probably the script with the most amount of redundant code in the entire game god damn.
+*/

@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Lamp : MonoBehaviour {
+public class Lamp : Trigger {
 
     //Component
-    public Trigger t_active, t_flicker;
     private Light Lamp_Light;
-    private AudioSource a_source;
     //Does lamp flicker?
     public bool Flicker = false;
     //Flicker variables
@@ -25,22 +23,9 @@ public class Lamp : MonoBehaviour {
         Flicker_Timer = Flicker_TimerMax / 2;
         Lamp_Light = this.GetComponent<Light>();
         Light_Intensity = Lamp_Light.intensity;
-
-        a_source = this.GetComponent<AudioSource>();
-        if (Lamp_Light.enabled && a_source) {
-            this.GetComponent<AudioSource>().Play();
-        }
     }
 
     private void FixedUpdate() {
-        if(t_active != null) {
-            if(t_flicker == null) {
-                OnState(t_active.IsActive, Flicker);
-            } else {
-                OnState(t_active.IsActive, t_flicker.IsActive);
-            }
-        }
-
         if(Flicker) {
             if (Flicker_Timer < Flicker_TimerMax) {
                 Flicker_Timer++;
@@ -54,10 +39,6 @@ public class Lamp : MonoBehaviour {
             Lamp_Light.intensity = Intensity_final;
         } else {
             Lamp_Light.intensity = Light_Intensity;
-        }
-
-        if(a_source) {
-            a_source.volume = Light_Intensity / 5f;
         }
     }
 

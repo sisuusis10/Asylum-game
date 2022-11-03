@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
     //Variables
+    public static PlayerController p;
     public bool IsLocked = true;
 
     private Camera Cam;
@@ -15,12 +16,13 @@ public class PlayerController : MonoBehaviour {
     private float SpeedMultiplier = 10f, _speed;
 
     //Camera
-    private Vector3 RotVector, FinalRotVector;
+    private Vector3 RotVector, FinalRotVector, ShakeDirection;
     private float RotationMultiplier = 100f;
     private float Rot_Clamp = 80f, RotLerp = 0.05f;
     // Start is called before the first frame update
     void Start() {
         //Set components
+        p = this;
         Cam = Camera.main;
         _rb = this.GetComponent<Rigidbody>();
         CharController = this.GetComponent<CharacterController>();
@@ -42,21 +44,27 @@ public class PlayerController : MonoBehaviour {
         //Movement
         MovementVector.x = Input.GetAxisRaw("Horizontal");
         MovementVector.z = Input.GetAxisRaw("Vertical");
-        //Apply
-        Vector3 dir = this.transform.rotation.normalized * MovementVector.normalized;
-        CharController.Move((dir) * _speed * Time.deltaTime);
-    
-    }
-    private void LateUpdate() {
+
         //Rotation
         RotVector.y += Input.GetAxis("Mouse X") * RotationMultiplier * Time.deltaTime;
         RotVector.x -= Input.GetAxis("Mouse Y") * RotationMultiplier * Time.deltaTime;
 
         //Clamp Rotation
         RotVector.x = Mathf.Clamp(RotVector.x, -Rot_Clamp, Rot_Clamp);
+
         //Apply
-        FinalRotVector = Vector3.Lerp(FinalRotVector, RotVector, RotLerp);
-        Cam.transform.rotation = Quaternion.Euler(RotVector.x, RotVector.y, RotVector.z);
-        this.transform.rotation = Quaternion.Euler(0, RotVector.y, RotVector.z);
+        Vector3 dir = this.transform.TransformDirection(MovementVector.normalized);
+        CharController.Move((dir) * _speed * Time.deltaTime);
+    
+    }
+    private void LateUpdate() {
+        if(!IsLocked) {
+            //Apply
+            FinalRotVector = Vector3.Lerp(FinalRotVector, RotVector, RotLerp);
+            //Rotate Player
+            this.transform.rotation = Quaternion.Euler(0, FinalRotVector.y, 0);
+            //Rotate Camera
+            Cam.transform.rotation = Quaternion.Euler(FinalRotVector + ShakeDirection);
+        }
     }
 }

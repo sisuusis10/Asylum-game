@@ -48,7 +48,6 @@ public class FlashLightScript : MonoBehaviour {
 
     public void SwitchOnState() {
         IsOn = (IsOn) ? false : true;
-        SoundSource.s.Play(FlashLightClick, 0.5f, 1, false);
     }
 
 

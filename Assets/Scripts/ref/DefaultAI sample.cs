@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿/*using UnityEngine;
 using UnityEngine.AI;
 
 public class DefaultAI : MonoBehaviour {
@@ -120,3 +120,4 @@ public class DefaultAI : MonoBehaviour {
     }
 
 }
+*/
