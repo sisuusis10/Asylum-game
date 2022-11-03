@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 114158257989079230}
   m_Layer: 0
   m_Name: PSXEffects
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,6 +29,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -96,13 +97,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b416fbce5a38cc47a3a1e709f95f5e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cfuStatus: PSXEffects
+  cfuStatus: PSXEffects v1.18.4 - version ahead?!
   sections: 01010100
-  customRes: {x: 620, y: 480}
+  customRes: {x: 440, y: 193}
   resolutionFactor: 2
   limitFramerate: 60
   skipFrames: 0
   affineMapping: 1
+  clampAffine: 0
+  affineBounds: 0
   polygonalDrawDistance: 0
   vertexInaccuracy: 40
   polygonInaccuracy: 2
