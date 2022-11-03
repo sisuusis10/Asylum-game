@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour {
     //Camera
     private Vector3 RotVector, FinalRotVector, ShakeDirection;
     private float RotationMultiplier = 100f;
-    private float Rot_Clamp = 80f, RotLerp = 0.05f;
+    private float Rot_Clamp = 80f, RotLerp = 0.1f;
     // Start is called before the first frame update
     void Start() {
         //Set components
