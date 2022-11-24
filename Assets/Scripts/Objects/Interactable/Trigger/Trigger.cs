@@ -7,10 +7,11 @@ public class Trigger : MonoBehaviour {
     //Variables
     public bool IsActivated = false;
     public bool TriggerOnce = false;
+    public bool RequiresPlayerInput = true;
+    private Trigger _Parent;
     public virtual void ActivateTrigger() {
         if(TriggerOnce) {
             IsActivated = true;
         }
     }
-
 }

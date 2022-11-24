@@ -5,23 +5,27 @@ using UnityEngine;
 public class Trigger_Puzzle : Trigger {
 
     //Variables
-    public bool Locked = true;
-
+    
     //Triggers
-    public Trigger[] Puzzle_Triggers;
+    public Trigger[] Puzzle_Pieces;
 
     public override void ActivateTrigger() {
         //Check if Unlockable
         bool r = true;
-        foreach (Trigger t in Puzzle_Triggers) {
+        foreach (Trigger t in Puzzle_Pieces) {
             if(!t.IsActivated) {
                 r = false;
                 break;
             }
         }
-        Locked = r;
+        //Trigger active state
+        OnActive();
 
         base.ActivateTrigger();
+    }
+    
+    public void OnActive() {
+
     }
 
 }

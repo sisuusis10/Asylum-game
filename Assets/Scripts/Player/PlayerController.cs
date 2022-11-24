@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour {
     private AudioSource _Audio;
     //Movement
     private Vector3 MovementVector;
+    public float WalkSpeed = 5f, RunSpeed = 10f, SneakSpeed = 3f;
     private float SpeedMultiplier = 10f, _speed;
     public bool IsRunning = false;
 
@@ -46,7 +47,7 @@ public class PlayerController : MonoBehaviour {
 
     public void Mov() {
         IsRunning = (!Input.GetKey(KeyCode.LeftShift)) ? false : true;
-        SpeedMultiplier = (!IsRunning) ? 5f : 15f;
+        SpeedMultiplier = (!IsRunning) ? WalkSpeed : RunSpeed;
 
         _speed = Mathf.Lerp(_speed, SpeedMultiplier, 0.05f);
         //Movement
@@ -81,34 +82,38 @@ public class PlayerController : MonoBehaviour {
     private float timer, timer_max;
     private AudioClip stepsfx;
     public void WalkAnimSfx() {
-        if(MovementVector != Vector3.zero) {
+        RaycastHit hit = new RaycastHit();
+        Physics.Raycast(this.transform.position, Vector3.down, out hit);
+        //Fix bug where player can float in air.
+        if (hit.distance > 1f) {
+            this.transform.position = new Vector3(transform.position.x, Mathf.Lerp(transform.position.y, transform.position.y - (hit.distance - 1f), 0.1f), transform.position.z);
+        }
+
+        if (MovementVector != Vector3.zero) {
             timer += Time.deltaTime;
             Anim.SetBool("IsWalking", true);
             if (!IsRunning) {
                 timer_max = 0.5f;
             }
             else {
-                timer_max = 0.2f;
+                timer_max = 0.4f;
             }
 
             if(timer >= timer_max) {
                 timer = 0;
-
-                RaycastHit hit;
-                if(Physics.Raycast(this.transform.position, Vector3.down, out hit)) {
+                if(hit.collider != null) {
                     SoundMaterial s = hit.collider.gameObject.GetComponent<SoundMaterial>();
                     if (s != null) {
                         _Audio.clip = SoundSource.s.Get_StepSound(s.Material);
                     }
+
+                    _Audio.pitch = Random.Range(0.9f, 1.1f);
+
+                    _Audio.Play();
                 }
-
-                _Audio.pitch = Random.Range(0.9f, 1.1f);
-
-                _Audio.Play();
-
             }
-
-        } else {
+        }
+        else {
             Anim.SetBool("IsWalking", false);
         }
 
