@@ -280,6 +280,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8406281147043450146}
+  - component: {fileID: 8702994915043987538}
   m_Layer: 0
   m_Name: CameraTransform
   m_TagString: Untagged
@@ -303,6 +304,19 @@ Transform:
   m_Father: {fileID: 750348753058299145}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8702994915043987538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5638695944249380788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8543779c807eaa94cabeda4765ae3e70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Distance: 1.5
 --- !u!1001 &750348754432139653
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -375,6 +389,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114158257989079230, guid: 3d5d1ed9e2204494b8f6ffe02e4c8e97, type: 3}
+      propertyPath: cfuStatus
+      value: PSXEffects v1.18.4 - version ahead?!
+      objectReference: {fileID: 0}
+    - target: {fileID: 114158257989079230, guid: 3d5d1ed9e2204494b8f6ffe02e4c8e97, type: 3}
       propertyPath: ditherSky
       value: 1
       objectReference: {fileID: 0}
@@ -385,6 +403,14 @@ PrefabInstance:
     - target: {fileID: 114158257989079230, guid: 3d5d1ed9e2204494b8f6ffe02e4c8e97, type: 3}
       propertyPath: snapCamera
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114158257989079230, guid: 3d5d1ed9e2204494b8f6ffe02e4c8e97, type: 3}
+      propertyPath: customRes.x
+      value: 550
+      objectReference: {fileID: 0}
+    - target: {fileID: 114158257989079230, guid: 3d5d1ed9e2204494b8f6ffe02e4c8e97, type: 3}
+      propertyPath: customRes.y
+      value: 259
       objectReference: {fileID: 0}
     - target: {fileID: 114158257989079230, guid: 3d5d1ed9e2204494b8f6ffe02e4c8e97, type: 3}
       propertyPath: ditherTexture

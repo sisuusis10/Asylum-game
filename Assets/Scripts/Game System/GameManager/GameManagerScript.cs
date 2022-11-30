@@ -1,38 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+
 public class GameManagerScript : MonoBehaviour {
 
     //Variables
     public static GameManagerScript game;
 
-    //Game
-    public bool IsPaused = false;
-
-    //Child GameObjects
-    public TextMeshProUGUI PausedText;
+    //Objects
+    public UI_IndicatorScript indicator;
 
     // Start is called before the first frame update
     void Awake() {
         game = this;
+        indicator = GameObject.FindObjectOfType<UI_IndicatorScript>();
     }
     private void Start() {
-        SetPauseState(IsPaused);
-    }
-    // Update is called once per frame
-    void Update() {
-        if(Input.GetKeyDown(KeyCode.Escape)) {
-            bool s = (IsPaused) ? false : true;
-            SetPauseState(s);
-        }
-    }
-
-    //Set Pause state
-    public void SetPauseState(bool state) {
-        IsPaused = state;
-        PausedText.enabled = state;        
-        Time.timeScale = (state) ? 1f : 0f;
     }
 
 }

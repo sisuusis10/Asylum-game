@@ -6,6 +6,8 @@ using UnityEngine.Networking;
 [ExecuteInEditMode]
 public class PSXEffects : MonoBehaviour {
 
+	public static PSXEffects psx;
+
 	public System.Version version = new System.Version("1.18.4");
 	public string cfuStatus = "PSXEffects";
 	public bool[] sections = { true, true, true, false };
@@ -50,6 +52,7 @@ public class PSXEffects : MonoBehaviour {
 	private int[] propIds;
 
 	private void Awake() {
+		psx = this;
 		if (Application.isPlaying) {
 			QualitySettings.vSyncCount = 0;
 		}
