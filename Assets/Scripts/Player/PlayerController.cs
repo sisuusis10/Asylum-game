@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour {
     //Camera
     private Vector3 RotVector, FinalRotVector, ShakeDirection;
     private float RotationMultiplier = 100f;
-    private float Rot_Clamp = 80f, RotLerp = 0.1f;
+    private float Rot_Clamp = 80f, RotLerp = 0.3f;
     // Start is called before the first frame update
     void Start() {
         //Set components
@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour {
         Physics.Raycast(this.transform.position, Vector3.down, out hit);
         //Fix bug where player can float in air.
         if (hit.distance > 1f) {
-            this.transform.position = new Vector3(transform.position.x, Mathf.Lerp(transform.position.y, transform.position.y - (hit.distance - 1f), 0.1f), transform.position.z);
+            this.transform.position = new Vector3(transform.position.x, Mathf.Lerp(transform.position.y, transform.position.y - (hit.distance - 1f), 0.8f), transform.position.z);
         }
 
         if (MovementVector != Vector3.zero) {

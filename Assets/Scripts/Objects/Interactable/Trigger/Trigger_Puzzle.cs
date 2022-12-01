@@ -15,16 +15,20 @@ public class Trigger_Puzzle : Trigger {
         foreach (Trigger t in Puzzle_Pieces) {
             if(!t.IsActivated) {
                 r = false;
-                break;
+                return;
             }
         }
         //Trigger active state
-        OnActive();
-
-        base.ActivateTrigger();
+        if(r) {
+            if(TriggerOnce) {
+                RequiresPlayerInput = false;
+                IsActivated = true;
+            }
+        }
+        OnActive(r);
     }
     
-    public void OnActive() {
+    public virtual void OnActive(bool b) {
 
     }
 

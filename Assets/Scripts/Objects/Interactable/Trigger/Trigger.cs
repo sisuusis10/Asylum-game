@@ -6,12 +6,13 @@ public class Trigger : MonoBehaviour {
 
     //Variables
     public bool IsActivated = false;
-    public bool TriggerOnce = false;
+    public bool TriggerOnce = true;
     public bool RequiresPlayerInput = true;
     private Trigger _Parent;
     public virtual void ActivateTrigger() {
         if(TriggerOnce) {
             IsActivated = true;
+            RequiresPlayerInput = false;
         }
     }
 }
