@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8271552810680290540
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6404340000193272056}
+  - component: {fileID: -2217078745982239935}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6404340000193272056
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8271552810680290540}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.1543636, y: 2.501239, z: -1.7140167}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-2217078745982239935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8271552810680290540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24a5cb81550fcdc4daf0da7a1b60770d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StepAudioClips:
+  - {fileID: 8300000, guid: 52c038b6803affc4dbd154a433b22475, type: 3}
+  - {fileID: 8300000, guid: 08f70be9537010047aad6b6686f98941, type: 3}
+  - {fileID: 8300000, guid: 23176bebd639a194c94e03066a5b81e9, type: 3}
+  - {fileID: 8300000, guid: df742414f6639d74f9196bf5cc8f8df4, type: 3}
+  - {fileID: 8300000, guid: 9b0fdc1c9e6b3e141afe7ba9b023658d, type: 3}
+  - {fileID: 8300000, guid: 5b05cd6a2ef4e0d4d9195d5ed8cbc681, type: 3}
+  IsPaused: 0
