@@ -18,4 +18,8 @@ public class GameManagerScript : MonoBehaviour {
     private void Start() {
     }
 
+    public void SetScreenBlood(float time, float intensity) {
+
+    }
+
 }
