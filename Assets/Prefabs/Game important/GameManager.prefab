@@ -402,6 +402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee0bdfc03867eff40b2b981f32dbb1ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsVisible: 0
   ItemSlot_Prefab: {fileID: 788576090185013258, guid: 84b7a1e46d31bb0488ee31824020f385, type: 3}
 --- !u!114 &6235295808118754938
 MonoBehaviour:
@@ -443,8 +444,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6404340000193272056}
   - component: {fileID: 5010429969535809165}
-  - component: {fileID: -2217078745982239935}
-  - component: {fileID: 1352573494}
+  - component: {fileID: 3830992143463057608}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -481,7 +481,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indicator: {fileID: 0}
---- !u!114 &-2217078745982239935
+--- !u!114 &3830992143463057608
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -490,7 +490,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8271552810680290540}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24a5cb81550fcdc4daf0da7a1b60770d, type: 3}
+  m_Script: {fileID: 11500000, guid: 5cb5c4296b586b541964a3c433bbc5c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   StepAudioClips:
@@ -501,16 +501,3 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9b0fdc1c9e6b3e141afe7ba9b023658d, type: 3}
   - {fileID: 8300000, guid: 5b05cd6a2ef4e0d4d9195d5ed8cbc681, type: 3}
   IsPaused: 0
---- !u!114 &1352573494
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8271552810680290540}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0455d2b360d3ffe45bf04dafff10ba6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  indicator: {fileID: 0}
