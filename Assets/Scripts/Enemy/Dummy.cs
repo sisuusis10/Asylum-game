@@ -14,12 +14,12 @@ public class Dummy : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         float d = Vector3.Distance(Player.position, transform.position);
-        if (d < 10) {
-            float a = 1f - Mathf.Abs(d / 10f);
-            SoundSource.s.SetLevels(d, true);
+        if (d < 20) {
+            float a = Mathf.Abs(d / 5f) - 1f;
+            SoundSource.s.SetLevels(a, true);
             print(a);
         } else {
-            SoundSource.s.SetLevels(0f, false);
+            SoundSource.s.SetLevels(1f, false);
         }
     }
 }

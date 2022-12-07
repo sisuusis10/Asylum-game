@@ -41,8 +41,10 @@ public class PauseMenuScript : MonoBehaviour {
         IsPaused = state;
         TMproText.text = (state) ? "-PAUSED-" : "";
         Time.timeScale = (state) ? 0f : 1f;
-        PSXEffects.psx.subtractFade = (state) ? 4 : 0;
+        PSXEffects.psx.subtractFade = (state) ? 3 : 0;
+        PSXEffects.psx.UpdateProperties();
         GameManagerScript.game.indicator.SetVisibility(!state);
+        SoundSource.s.IsPaused = state;
         a = 0;
         dir = false;
         //Mouse

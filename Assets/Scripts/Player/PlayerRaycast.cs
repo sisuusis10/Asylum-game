@@ -7,7 +7,7 @@ public class PlayerRaycast : MonoBehaviour {
     //Variables
     private Camera cam;
     private RaycastHit Hit;
-    public float Distance = 1.5f;
+    private float Distance = 2.5f;
     // Start is called before the first frame update
     void Start() {
         cam = Camera.main;
