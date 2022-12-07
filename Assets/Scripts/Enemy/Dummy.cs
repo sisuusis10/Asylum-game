@@ -22,7 +22,7 @@ public class Dummy : MonoBehaviour {
             SoundSource.s.SetLevels(1f, false);
         }
         if(d < 25) {
-            float r = (d < 20) ? 1f : 0f;
+            float r = (d < 20 && PlayerRaycast.uh.IsInFov(this.transform)) ? 1f : 0f;
             PostprocessingEffects.effects.SetChromaticIntensity(r);
         }
     }

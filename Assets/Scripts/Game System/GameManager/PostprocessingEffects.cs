@@ -30,7 +30,7 @@ public class PostprocessingEffects : MonoBehaviour {
     }
 
     private void Update() {
-            chrom_intensity = Mathf.Lerp(chrom_intensity, chrom_target_intensity, Time.deltaTime * 10);
+            chrom_intensity = Mathf.Lerp(chrom_intensity, chrom_target_intensity, Time.deltaTime);
         //Apply effects
         chrom.intensity.Override(chrom_intensity);
     }
