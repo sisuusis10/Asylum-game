@@ -51,10 +51,10 @@ public class SoundSource : MonoBehaviour {
         }
     }
     public void SetLevels(float Ambience_Horror_Ratio, bool Horror) {
-        Volume_Ambience = 1f - Ambience_Horror_Ratio;
-        Volume_AmbienceHorror = Ambience_Horror_Ratio;
+        Volume_Ambience = Ambience_Horror_Ratio;
+        Volume_AmbienceHorror = 1 - Ambience_Horror_Ratio;
 
-        Volume_Horror = (Horror) ? Volume_AmbienceHorror : 0f;
+        Volume_Horror = (Horror) ? 0.5f * Volume_AmbienceHorror : 0f;
     }
 
     private void SetVolumes(float a, float a_h, float _Horror, bool _lerp) {
@@ -65,7 +65,7 @@ public class SoundSource : MonoBehaviour {
         } else {
             Source_Ambience.volume = Mathf.Lerp(Source_Ambience.volume, a, Volume_Lerp);
             Source_AmbienceHorror.volume = Mathf.Lerp(Source_AmbienceHorror.volume, a_h, Volume_Lerp);
-            Source_Horror.volume = Mathf.Lerp(Source_Horror.volume, _Horror / 2f, Volume_Lerp);
+            Source_Horror.volume = Mathf.Lerp(Source_Horror.volume, _Horror, Volume_Lerp);
         }
     }
 

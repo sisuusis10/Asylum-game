@@ -9,7 +9,8 @@ public class GameManagerScript : MonoBehaviour {
 
     //Objects
     public UI_IndicatorScript indicator;
-
+    public TextBoxScript textbox;
+    
     // Start is called before the first frame update
     void Awake() {
         game = this;

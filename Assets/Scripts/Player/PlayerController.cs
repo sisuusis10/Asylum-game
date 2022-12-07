@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour {
     private CharacterController CharController;
     private AudioSource _Audio;
     //Movement
-    private Vector3 MovementVector;
+    public Vector3 MovementVector;
     public float WalkSpeed = 5f, RunSpeed = 10f, SneakSpeed = 3f;
     private float SpeedMultiplier = 10f, _speed;
     public bool IsRunning = false;
