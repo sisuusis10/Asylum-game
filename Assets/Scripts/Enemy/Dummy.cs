@@ -21,5 +21,9 @@ public class Dummy : MonoBehaviour {
         } else {
             SoundSource.s.SetLevels(1f, false);
         }
+        if(d < 25) {
+            float r = (d < 20) ? 1f : 0f;
+            PostprocessingEffects.effects.SetChromaticIntensity(r);
+        }
     }
 }

@@ -408,6 +408,7 @@ MonoBehaviour:
   IsVisible: 0
   ItemSlot_Prefab: {fileID: 788576090185013258, guid: 84b7a1e46d31bb0488ee31824020f385, type: 3}
   Max_SlotCount: 4
+  CurrentIndex: -1
 --- !u!114 &6235295808118754938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1228,6 +1229,7 @@ GameObject:
   - component: {fileID: 6404340000193272056}
   - component: {fileID: 5010429969535809165}
   - component: {fileID: 3830992143463057608}
+  - component: {fileID: 4758740377928317459}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1293,3 +1295,16 @@ MonoBehaviour:
   Volume_Horror: 0
   Volume_Lerp: 0.1
   IsPaused: 0
+--- !u!114 &4758740377928317459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8271552810680290540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86ba963b2cfa85e49bc6ea9eb56d1b14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Volume: {fileID: 0}

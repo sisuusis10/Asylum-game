@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class InventoryItemSlotScript : MonoBehaviour {
 
     public Image ItemSlot;
+    public Image ItemDisplay;
+
     public Sprite[] StateSprites;
     public bool IsSelected = false;
 
@@ -13,6 +15,8 @@ public class InventoryItemSlotScript : MonoBehaviour {
 
     private void Start() {
         ItemSlot = this.GetComponent<Image>();
+        ItemDisplay.gameObject.SetActive(false
+            );
     }
     public void SetState(bool _selected) {
         IsSelected = _selected;
