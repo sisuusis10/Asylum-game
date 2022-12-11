@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour {
     private float RotationMultiplier = 100f;
     private float Rot_Clamp = 80f, RotLerp = 0.3f;
     // Start is called before the first frame update
-    void Start() {
+    void Awake() {
         //Set components
         p = this;
         Cam = Camera.main;

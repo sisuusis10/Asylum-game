@@ -40,7 +40,6 @@ public class PlayerRaycast : MonoBehaviour {
             RaycastHit FovHit;
             if (Physics.Raycast(cam.transform.position, dir.normalized, out FovHit)) {
                 if (FovHit.collider.gameObject == Entity.gameObject) {
-                    print(Entity.name + " is in view.");
                     //PostProcessing effects
                     PostprocessingEffects.effects.SetChromaticIntensity(1f);
 
@@ -48,7 +47,6 @@ public class PlayerRaycast : MonoBehaviour {
                 }
             }
         }
-        print(this.name + " is not in view.");
         PostprocessingEffects.effects.SetChromaticIntensity(0f);
         return false; //True is not returned, then return false
     }

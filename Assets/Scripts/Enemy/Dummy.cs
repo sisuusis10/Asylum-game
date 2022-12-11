@@ -17,7 +17,6 @@ public class Dummy : MonoBehaviour {
         if (d < 20) {
             float a = Mathf.Abs(d / 5f) - 1f;
             SoundSource.s.SetLevels(a, true);
-            print(a);
         } else {
             SoundSource.s.SetLevels(1f, false);
         }
