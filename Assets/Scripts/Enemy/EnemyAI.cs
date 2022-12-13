@@ -22,6 +22,7 @@ public class EnemyAI : MonoBehaviour {
     private Transform PlayerTarget;
     [SerializeField]
     private float PlayerSpotted_Timer = 0f, CoolDown = 0f, ReactionTime = 0f;
+
     // Start is called before the first frame update
     void Start() {
         NavAgent = this.GetComponent<NavMeshAgent>();
@@ -36,7 +37,8 @@ public class EnemyAI : MonoBehaviour {
     }
 
     void stateMachine() {
-        switch(CurrentAI_State) {
+        AudioLevel();
+        switch (CurrentAI_State) {
             case AI_States.Patrol:
                 AI_Patrol();
                 return;
@@ -58,10 +60,24 @@ public class EnemyAI : MonoBehaviour {
             if (ReactionTime >= d) {
                 PlayerSpotted_Timer = 3f;
                 CurrentAI_State = AI_States.Hunt;
+                return;
             }
         } else {
             ReactionTime = 0f;
         }
+
+        //Random path
+        if (CoolDown <= 0f || Target_pos.x == Mathf.Infinity) {
+            CoolDown = Random.Range(0f, 5f);
+            Target_pos = RandomPath();
+        } else {
+            float d = Vector3.Distance(transform.position, new Vector3(Target_pos.x, transform.position.y, Target_pos.z));
+            print(d);
+            if (d < 1f) {
+                CoolDown -= Time.deltaTime;
+            }
+        }
+        Move();
     }
     void AI_Investigate() {
         CurrentAI_State = AI_States.Patrol;
@@ -79,6 +95,7 @@ public class EnemyAI : MonoBehaviour {
         } else {
             //Change state
             CurrentAI_State = AI_States.Investigate;
+            return;
         }
         //Move
         Move();
@@ -104,6 +121,36 @@ public class EnemyAI : MonoBehaviour {
             }
         }
         return false; //True is not returned, then return false
+    }
+
+    //Audio level Variables
+    public float AudioLevel_MaxDistance = 30f;
+    public void AudioLevel() {
+        float d = Vector3.Distance(PlayerTarget.position, transform.position);
+        if (PlayerSpotted_Timer > 0f && d < AudioLevel_MaxDistance) {
+            float a = Mathf.Tan(Mathf.Abs(d / AudioLevel_MaxDistance));
+            SoundSource.s.SetLevels(a, true);
+        }
+        else {
+            SoundSource.s.SetLevels(1f, false);
+        }
+        if (d < 25) {
+            float r = (d < 20 && PlayerRaycast.uh.IsInFov(this.transform)) ? 1f : 0f;
+            PostprocessingEffects.effects.SetChromaticIntensity(r);
+        }
+    }
+
+    public Vector3 RandomPath() {
+        float rand_d = Random.Range(5f, 20f);
+        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * rand_d;
+
+        randomDirection += transform.position;
+
+        NavMeshHit navHit;
+
+        NavMesh.SamplePosition(randomDirection, out navHit, rand_d, 1);
+
+        return navHit.position;
     }
 
 }
