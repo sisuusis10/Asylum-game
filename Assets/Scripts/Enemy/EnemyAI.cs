@@ -21,13 +21,15 @@ public class EnemyAI : MonoBehaviour {
     [SerializeField]
     private Transform PlayerTarget;
     [SerializeField]
-    private float PlayerSpotted_Timer = 0f, CoolDown = 0f, ReactionTime = 0f, AttackTimer = 0f;
+    private float PlayerSpotted_Timer = 0f, CoolDown = 0f, ReactionTime = 0f, AttackTimer = 0f, Step_timer = 0f, Step_timerMax;
     public int DealDamage = 4;
+    private AudioSource _Audio;
 
     // Start is called before the first frame update
     void Start() {
         NavAgent = this.GetComponent<NavMeshAgent>();
         PlayerTarget = PlayerController.p.transform;
+        _Audio = this.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -38,7 +40,6 @@ public class EnemyAI : MonoBehaviour {
     }
 
     void stateMachine() {
-        AudioLevel();
         if(AttackTimer > 0f) { AttackTimer -= Time.deltaTime; }
         switch (CurrentAI_State) {
             case AI_States.Patrol:
@@ -46,21 +47,24 @@ public class EnemyAI : MonoBehaviour {
                 return;
             case AI_States.Investigate:
                 AI_Investigate();
+                AudioLevel();
                 return;
             case AI_States.Hunt:
                 AI_Hunt();
+                AudioLevel();
                 return;
             case AI_States.Attack:
                 AI_Attack();
+                AudioLevel();
                 return;
         }
     }
 
     void AI_Patrol() {
         if(IsInFov()) {
-            float d = Vector3.Distance(this.transform.position, Target_pos) / 10f;
+            float d = Vector3.Distance(this.transform.position, Target_pos) / 3f;
             ReactionTime += Time.deltaTime;
-
+            print(d);
             //React on player being in sight
             if (ReactionTime >= d) {
                 PlayerSpotted_Timer = 3f;
@@ -77,7 +81,6 @@ public class EnemyAI : MonoBehaviour {
             Target_pos = RandomPath();
         } else {
             float d = Vector3.Distance(transform.position, new Vector3(Target_pos.x, transform.position.y, Target_pos.z));
-            print(d);
             if (d < 1f || NavAgent.velocity.magnitude == 0) {
                 CoolDown -= Time.deltaTime;
             }
@@ -104,7 +107,7 @@ public class EnemyAI : MonoBehaviour {
         }
         //Attack
         float d = Vector3.Distance(this.transform.position, Target_pos);
-        if (d < 1f) {
+        if (d < 1.4f) {
             SetAIstate(AI_States.Attack);
         }
         //Move
@@ -129,6 +132,8 @@ public class EnemyAI : MonoBehaviour {
     }
 
     void Move() {
+        //Play walking sound effect
+        WalkSfx();
         //Set destination
         NavAgent.destination = Target_pos;
     }
@@ -180,4 +185,42 @@ public class EnemyAI : MonoBehaviour {
         return navHit.position;
     }
 
+    private void OnTriggerEnter(Collider other) {
+        if(other.gameObject.tag == "Player") {
+            PlayerSpotted_Timer = 0.5f;
+            SetAIstate(AI_States.Hunt);
+        }
+    }
+    public void WalkSfx() {
+        RaycastHit hit = new RaycastHit();
+        Physics.Raycast(this.transform.position, Vector3.down, out hit);
+
+        if (NavAgent.velocity != Vector3.zero) {
+            Step_timer += Time.deltaTime;
+            if (CurrentAI_State !=  AI_States.Hunt) {
+                Step_timerMax = 0.8f;
+            }
+            else {
+                Step_timerMax = 0.5f;
+            }
+
+            if (Step_timer >= Step_timerMax) {
+                Step_timer = 0;
+                if (hit.collider != null) {
+                    SoundMaterial s = hit.collider.gameObject.GetComponent<SoundMaterial>();
+                    if (s != null) {
+                        _Audio.clip = SoundSource.s.Get_StepSound(s.Material);
+                    }
+
+                    _Audio.pitch = Random.Range(0.5f, 1f);
+
+                    _Audio.Play();
+                }
+            }
+        }
+        else {
+            Step_timer = 0f;
+        }
+
+    }
 }

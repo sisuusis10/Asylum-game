@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour {
     public bool IsDead = false;
     public int HP, HP_Max = 10;
     private float HP_RegenerationTimer, HP_RegenerationTimerMax = 2f;
+    public AudioSource HurtSource;
 
     // Start is called before the first frame update
     void Awake() {
@@ -59,7 +60,7 @@ public class PlayerController : MonoBehaviour {
         if(HP < HP_Max && HP_RegenerationTimer <= 0f) {
             HP++;
             HP_RegenerationTimer = HP_RegenerationTimerMax;
-        } else if(HP_RegenerationTimer > 0f) {
+        } else if(HP_RegenerationTimer > 0f && HP < HP_Max) {
             HP_RegenerationTimer -= Time.deltaTime;
         }
 
@@ -144,6 +145,7 @@ public class PlayerController : MonoBehaviour {
             }
         }
         else {
+            timer = 0f;
             Anim.SetBool("IsWalking", false);
         }
 
@@ -152,6 +154,8 @@ public class PlayerController : MonoBehaviour {
     public void Damage(int _damage, Vector3 _Direction) {
         HP -= _damage;
         SetCameraShake(_Direction, 1f);
+        HurtSource.pitch = Random.Range(0.8f, 1.1f);
+        HurtSource.Play();
         if(HP <= 0) {
             IsDead = true;
             GameManagerScript.game.SetDeathScene();
