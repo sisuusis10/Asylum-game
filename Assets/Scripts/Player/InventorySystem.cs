@@ -18,14 +18,14 @@ public class InventorySystem : MonoBehaviour {
         Bg = this.GetComponent<Image>();
 
         ItemSlots = new InventoryItemSlotScript[Max_SlotCount]; //Set Item slot array size
-        int pos_offset = 80; //Add to offset position for every slot
+        float pos_offset = 80; //Add to offset position for every slot
         for (int i = 0; i < Max_SlotCount; i++) { //Loop and create all item slots
             GameObject instance = Instantiate(ItemSlot_Prefab); //Instanciate prefab
             RectTransform _rect = instance.GetComponent<RectTransform>();
             _rect.SetParent(Bg.rectTransform);
-            _rect.localPosition = new Vector2(Bg.rectTransform.localPosition.x, pos_offset);
+            _rect.localPosition = new Vector2(Bg.rectTransform.localPosition.x - _rect.rect.width, pos_offset);
             ItemSlots[i] = instance.GetComponent<InventoryItemSlotScript>(); //Save Instance to array
-            pos_offset -= 80; //Change Slot offset to avoid overlap
+            pos_offset -= _rect.rect.height * 1.5f; //Change Slot offset to avoid overlap
         }
 
     }
