@@ -32,7 +32,7 @@ public class InventorySystem : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (Input.mouseScrollDelta.y != 0) {
+        if (Input.mouseScrollDelta.y != 0 && !PauseMenuScript.pause.IsPaused) {
             //Set to visible
             IsVisible = true;
             p = -1f;

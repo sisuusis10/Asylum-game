@@ -21,9 +21,14 @@ public class PlayerController : MonoBehaviour {
     public bool IsRunning = false;
 
     //Camera
-    private Vector3 RotVector, FinalRotVector, ShakeDirection;
-    private float RotationMultiplier = 100f;
+    private Vector3 RotVector, FinalRotVector, ShakeDirection, ShakeIntensity;
+    private float RotationMultiplier = 100f, Shake_Duration;
     private float Rot_Clamp = 80f, RotLerp = 0.3f;
+
+    //Gameplay
+    public bool IsDead = false;
+    public int HP, HP_Max = 10;
+
     // Start is called before the first frame update
     void Awake() {
         //Set components
@@ -35,6 +40,8 @@ public class PlayerController : MonoBehaviour {
         _Audio = this.GetComponent<AudioSource>();
         //Unlock
         IsLocked = false;
+
+        HP = HP_Max;
     }
 
     // Update is called once per frame
@@ -61,6 +68,17 @@ public class PlayerController : MonoBehaviour {
         //Clamp Rotation
         RotVector.x = Mathf.Clamp(RotVector.x, -Rot_Clamp, Rot_Clamp);
 
+        //Camera Shake
+        if (Shake_Duration > 0f && Time.deltaTime > 0f) {
+            Shake_Duration -= Time.deltaTime;
+            //Set
+            float _x = Random.Range(-1f, 1f) * ShakeIntensity.x;
+            float _y = Random.Range(-1f, 1f) * ShakeIntensity.y;
+            float _z = Random.Range(-1f, 1f) * ShakeIntensity.z;
+
+            ShakeDirection = new Vector3(_x, _y, _z);
+        }
+
         //Apply
         Vector3 dir = this.transform.TransformDirection(MovementVector.normalized);
         CharController.Move((dir) * _speed * Time.deltaTime);
@@ -72,6 +90,7 @@ public class PlayerController : MonoBehaviour {
             FinalRotVector = Vector3.Lerp(FinalRotVector, RotVector, RotLerp);
             //Rotate Player
             this.transform.rotation = Quaternion.Euler(0, FinalRotVector.y, 0);
+            
             //Rotate Camera
             Cam.transform.rotation = Quaternion.Euler(FinalRotVector + ShakeDirection);
         }
@@ -119,4 +138,17 @@ public class PlayerController : MonoBehaviour {
 
     }
 
+    public void Damage(int _damage, Vector3 _Direction) {
+        HP -= _damage;
+        SetCameraShake(_Direction, 1f);
+        if(HP <= 0) {
+            IsDead = true;
+            GameManagerScript.game.SetDeathScene();
+        }
+    }
+
+    public void SetCameraShake(Vector3 _Direction, float _Duration) {
+        ShakeIntensity = _Direction;
+        Shake_Duration = _Duration;
+    }
 }

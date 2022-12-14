@@ -9,8 +9,8 @@ public class EnemyAI : MonoBehaviour {
     public bool IsActive = true;
     private NavMeshAgent NavAgent;
     //AI states
-    public enum AI_States { Patrol, Investigate, Hunt };
-    public AI_States CurrentAI_State = AI_States.Patrol;
+    public enum AI_States { Patrol, Investigate, Hunt, Attack };
+    public AI_States CurrentAI_State = AI_States.Patrol, PreviousAI_State;
 
     //Behaviour
     public float Fov = 30f;
@@ -21,7 +21,8 @@ public class EnemyAI : MonoBehaviour {
     [SerializeField]
     private Transform PlayerTarget;
     [SerializeField]
-    private float PlayerSpotted_Timer = 0f, CoolDown = 0f, ReactionTime = 0f;
+    private float PlayerSpotted_Timer = 0f, CoolDown = 0f, ReactionTime = 0f, AttackTimer = 0f;
+    public int DealDamage = 4;
 
     // Start is called before the first frame update
     void Start() {
@@ -38,6 +39,7 @@ public class EnemyAI : MonoBehaviour {
 
     void stateMachine() {
         AudioLevel();
+        if(AttackTimer > 0f) { AttackTimer -= Time.deltaTime; }
         switch (CurrentAI_State) {
             case AI_States.Patrol:
                 AI_Patrol();
@@ -47,6 +49,9 @@ public class EnemyAI : MonoBehaviour {
                 return;
             case AI_States.Hunt:
                 AI_Hunt();
+                return;
+            case AI_States.Attack:
+                AI_Attack();
                 return;
         }
     }
@@ -59,7 +64,7 @@ public class EnemyAI : MonoBehaviour {
             //React on player being in sight
             if (ReactionTime >= d) {
                 PlayerSpotted_Timer = 3f;
-                CurrentAI_State = AI_States.Hunt;
+                SetAIstate(AI_States.Hunt);
                 return;
             }
         } else {
@@ -80,7 +85,7 @@ public class EnemyAI : MonoBehaviour {
         Move();
     }
     void AI_Investigate() {
-        CurrentAI_State = AI_States.Patrol;
+        SetAIstate(AI_States.Patrol);
     }
 
     void AI_Hunt() {
@@ -94,11 +99,32 @@ public class EnemyAI : MonoBehaviour {
             CoolDown -= Time.deltaTime;
         } else {
             //Change state
-            CurrentAI_State = AI_States.Investigate;
+            SetAIstate(AI_States.Investigate);
             return;
+        }
+        //Attack
+        float d = Vector3.Distance(this.transform.position, Target_pos);
+        if (d < 1f) {
+            SetAIstate(AI_States.Attack);
         }
         //Move
         Move();
+    }
+
+    public void AI_Attack() {
+        if(AttackTimer <= 0f) {
+            AttackTimer = 1.5f;
+            PlayerController.p.Damage(DealDamage, this.transform.forward);
+        } else {
+            SetAIstate(PreviousAI_State);
+        }
+    }
+
+    public void SetAIstate(AI_States _state) {
+        if(CurrentAI_State != _state) {
+            PreviousAI_State = CurrentAI_State;
+            CurrentAI_State = _state;
+        }
     }
 
     void Move() {
@@ -129,7 +155,7 @@ public class EnemyAI : MonoBehaviour {
         float d = Vector3.Distance(PlayerTarget.position, transform.position);
         if (PlayerSpotted_Timer > 0f && d < AudioLevel_MaxDistance) {
             float a = Mathf.Tan(Mathf.Abs(d / AudioLevel_MaxDistance));
-            SoundSource.s.SetLevels(a, true);
+            SoundSource.s.SetLevels(a, false);
         }
         else {
             SoundSource.s.SetLevels(1f, false);
