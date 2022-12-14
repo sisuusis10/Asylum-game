@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour {
     //Gameplay
     public bool IsDead = false;
     public int HP, HP_Max = 10;
+    private float HP_RegenerationTimer, HP_RegenerationTimerMax = 2f;
 
     // Start is called before the first frame update
     void Awake() {
@@ -53,6 +54,16 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void Mov() {
+
+        //Health
+        if(HP < HP_Max && HP_RegenerationTimer <= 0f) {
+            HP++;
+            HP_RegenerationTimer = HP_RegenerationTimerMax;
+        } else if(HP_RegenerationTimer > 0f) {
+            HP_RegenerationTimer -= Time.deltaTime;
+        }
+
+        //Movement
         IsRunning = (!Input.GetKey(KeyCode.LeftShift)) ? false : true;
         SpeedMultiplier = (!IsRunning) ? WalkSpeed : RunSpeed;
 

@@ -78,7 +78,7 @@ public class EnemyAI : MonoBehaviour {
         } else {
             float d = Vector3.Distance(transform.position, new Vector3(Target_pos.x, transform.position.y, Target_pos.z));
             print(d);
-            if (d < 1f) {
+            if (d < 1f || NavAgent.velocity.magnitude == 0) {
                 CoolDown -= Time.deltaTime;
             }
         }
@@ -115,6 +115,7 @@ public class EnemyAI : MonoBehaviour {
         if(AttackTimer <= 0f) {
             AttackTimer = 1.5f;
             PlayerController.p.Damage(DealDamage, this.transform.forward);
+            GameManagerScript.game.SetScreenBlood(2f, 0.3f);
         } else {
             SetAIstate(PreviousAI_State);
         }
@@ -155,7 +156,7 @@ public class EnemyAI : MonoBehaviour {
         float d = Vector3.Distance(PlayerTarget.position, transform.position);
         if (PlayerSpotted_Timer > 0f && d < AudioLevel_MaxDistance) {
             float a = Mathf.Tan(Mathf.Abs(d / AudioLevel_MaxDistance));
-            SoundSource.s.SetLevels(a, false);
+            SoundSource.s.SetLevels(a, true);
         }
         else {
             SoundSource.s.SetLevels(1f, false);

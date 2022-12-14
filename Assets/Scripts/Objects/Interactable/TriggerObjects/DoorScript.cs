@@ -11,6 +11,7 @@ public class DoorScript : Trigger {
     private AudioSource source;
     public AudioClip OpenSfx, CloseSfx, LockedSfx;
     private Transform Player;
+    public Trigger Key;
     
     private float AnimSpeed = 1f;
 
@@ -22,10 +23,10 @@ public class DoorScript : Trigger {
     void Start() {
         source = this.GetComponent<AudioSource>();
         Player = PlayerController.p.transform;
-        if(Anim == null) { Anim = new Animator[] { this.GetComponent<Animator>() }; }
     }
 
     public override void ActivateTrigger() {
+        if(Key != null && Key.IsActivated) { Locked = false; }
         if(!Locked) {
             if(!IsOpen) {
                 TriggerOpen();

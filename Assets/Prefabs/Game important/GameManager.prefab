@@ -1405,6 +1405,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indicator: {fileID: 0}
   textbox: {fileID: 8328519720660971092}
+  BloodOverlay: {fileID: 7204469491893003570}
 --- !u!114 &3830992143463057608
 MonoBehaviour:
   m_ObjectHideFlags: 0

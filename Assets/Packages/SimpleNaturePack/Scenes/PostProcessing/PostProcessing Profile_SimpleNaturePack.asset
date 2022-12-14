@@ -35,7 +35,7 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 10
+    value: 1
   threshold:
     overrideState: 1
     value: 1
@@ -44,7 +44,7 @@ MonoBehaviour:
     value: 0.5
   clamp:
     overrideState: 1
-    value: 65472
+    value: 1
   diffusion:
     overrideState: 1
     value: 7
@@ -129,7 +129,7 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 1
+    value: 0.5
   color:
     overrideState: 1
     value: {r: 0, g: 0, b: 0, a: 1}
@@ -147,7 +147,7 @@ MonoBehaviour:
     value: -12
   thicknessModifier:
     overrideState: 1
-    value: 3.22
+    value: 1
   directLightingStrength:
     overrideState: 1
     value: 0.406
